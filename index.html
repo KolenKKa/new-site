@@ -1,506 +1,869 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" class="scroll-smooth">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ПАК «ГЕЛИОПЛАН» — привязные аэростатные комплексы гибридной схемы</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>
-:root{
-  --bg:#ffffff; --txt:#111418; --mut:#5c6672; --line:#e3e6ea; --soft:#f6f7f9; --acc:#0b4ea2;
-}
-*{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{font-family:'Inter',Arial,sans-serif;background:var(--bg);color:var(--txt);font-size:16px;line-height:1.6}
-.wrap{max-width:1160px;margin:0 auto;padding:0 24px}
-section{padding:72px 0;border-top:1px solid var(--line)}
-h1{font-size:clamp(30px,4.4vw,52px);line-height:1.12;font-weight:700;letter-spacing:-.01em}
-h2{font-size:clamp(24px,3vw,34px);font-weight:700;letter-spacing:-.01em;margin-bottom:10px}
-h3{font-size:17px;font-weight:600;margin-bottom:8px}
-p{color:var(--mut)}
-.num{display:block;font-size:12px;font-weight:600;letter-spacing:.14em;color:var(--mut);text-transform:uppercase;margin-bottom:10px}
-a{color:var(--acc)}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Гелиоплан (Helikite) — Революционная технология аэростатов-змеев</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        helio: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            200: '#bae0fd',
+                            300: '#7cc8fb',
+                            400: '#36aff7',
+                            500: '#0c93e7',
+                            600: '#0074c5',
+                            700: '#015da3',
+                            800: '#064f86',
+                            900: '#0b426f',
+                            950: '#072a4a',
+                        }
+                    },
+                    backgroundImage: {
+                        'hero-gradient': 'linear-gradient(135deg, #ffffff 0%, #e0effe 50%, #0c93e7 100%)',
+                        'blue-card': 'linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(224, 239, 254, 0.6) 100%)',
+                        'accent-gradient': 'linear-gradient(90deg, #0c93e7 0%, #0074c5 100%)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+            overflow-x: hidden;
+        }
+        
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+        }
 
-/* Top bar & header */
-.topbar{background:var(--soft);border-bottom:1px solid var(--line);font-size:12.5px;color:var(--mut)}
-.topbar .wrap{display:flex;justify-content:space-between;gap:16px;padding:8px 24px;flex-wrap:wrap}
-header.main{position:sticky;top:0;background:#fff;border-bottom:1px solid var(--line);z-index:50}
-.hin{display:flex;align-items:center;justify-content:space-between;height:68px}
-.logo{font-weight:700;font-size:17px;letter-spacing:.02em;text-decoration:none;color:var(--txt)}
-.logo span{color:var(--mut);font-weight:500}
-nav.main a{color:var(--txt);text-decoration:none;font-size:14px;font-weight:500;margin:0 12px}
-nav.main a:hover{color:var(--acc)}
-.btn{display:inline-block;padding:12px 24px;font-size:14px;font-weight:600;text-decoration:none;cursor:pointer;border:1px solid var(--txt);background:var(--txt);color:#fff;transition:.2s}
-.btn:hover{background:var(--acc);border-color:var(--acc)}
-.btn.o{background:#fff;color:var(--txt);border-color:#c9ced6}
-.btn.o:hover{border-color:var(--txt);background:var(--soft)}
-.btn.s{padding:9px 18px;font-size:13px}
-@media(max-width:900px){nav.main{display:none}}
+        .glass-dark {
+            background: rgba(11, 66, 111, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
 
-/* Hero */
-.hero{padding:64px 0;border-top:0}
-.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
-.hero p.sub{font-size:17px;margin:18px 0 26px;max-width:520px}
-.kv{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-bottom:28px}
-.kv div{background:#fff;padding:14px 16px}
-.kv b{display:block;font-size:20px;font-weight:700}
-.kv span{font-size:12.5px;color:var(--mut)}
-.hero-fig{background:var(--soft);border:1px solid var(--line);padding:10px}
-.hero-fig img{width:100%;height:auto;display:block;object-fit:contain}
-.hero-fig figcaption{font-size:12px;color:var(--mut);padding:10px 4px 2px}
-@media(max-width:900px){.hero-grid{grid-template-columns:1fr}}
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
 
-/* Slider */
-.carousel{border:1px solid var(--line);background:#fff;position:relative}
-.track{display:flex;transition:transform .55s ease;touch-action:pan-y}
-.slide{min-width:100%}
-.slide figure{background:var(--soft);display:flex;align-items:center;justify-content:center;height:min(62vh,560px);position:relative;overflow:hidden}
-.slide img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block}
-.slide .ph{display:none;position:absolute;inset:0;align-items:center;justify-content:center;color:var(--mut);font-size:14px;text-align:center;padding:20px}
-.slide figure.img-missing .ph{display:flex}
-.slide .cnt{position:absolute;top:12px;right:14px;font-size:12px;font-weight:600;color:var(--mut);background:#fff;border:1px solid var(--line);padding:4px 10px}
-.cap{display:flex;justify-content:space-between;gap:20px;padding:16px 20px;border-top:1px solid var(--line);flex-wrap:wrap}
-.cap b{font-size:15px}
-.cap p{font-size:13.5px;margin-top:4px;max-width:760px}
-.cap .src{font-size:12px;color:var(--mut);white-space:nowrap;align-self:center}
-.car-btn{position:absolute;top:calc(50% - 46px);transform:translateY(-50%);width:44px;height:44px;background:#fff;border:1px solid #c9ced6;font-size:20px;color:var(--txt);cursor:pointer;z-index:5;transition:.2s;line-height:1}
-.car-btn:hover{background:var(--txt);color:#fff;border-color:var(--txt)}
-.car-prev{left:14px}.car-next{right:14px}
-.dots{display:flex;gap:8px;justify-content:center;padding:14px 0;border-top:1px solid var(--line)}
-.dot{width:9px;height:9px;border-radius:50%;border:0;background:#c9ced6;cursor:pointer;padding:0;transition:.2s}
-.dot.on{background:var(--txt);width:26px;border-radius:6px}
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-18px) rotate(1.5deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
 
-/* Lists, cards, tables */
-.cols2{columns:2;gap:40px}
-.cols2 li,.cols3 li{margin:0 0 10px 18px;color:var(--mut);font-size:14.5px}
-.cols2 b,.cols3 b{color:var(--txt)}
-@media(max-width:800px){.cols2{columns:1}}
-.adv{counter-reset:a;display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:28px}
-.adv div{background:#fff;padding:20px}
-.adv div::before{counter-increment:a;content:"0" counter(a);display:block;font-size:13px;font-weight:700;color:var(--acc);margin-bottom:8px}
-.adv b{font-size:14px;display:block;margin-bottom:6px}
-.adv p{font-size:13px}
-@media(max-width:980px){.adv{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:560px){.adv{grid-template-columns:1fr}}
-.classes{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:28px}
-.classes div{border:1px solid var(--line);padding:22px}
-.classes b{font-size:15px}
-.classes p{font-size:13.5px;margin-top:6px}
-@media(max-width:800px){.classes{grid-template-columns:1fr}}
-.tbl{overflow-x:auto;border:1px solid var(--line);margin-top:26px}
-table{width:100%;border-collapse:collapse;font-size:14px;min-width:680px}
-th{background:var(--soft);text-align:left;font-weight:600;font-size:12.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--mut)}
-th,td{padding:11px 16px;border-bottom:1px solid var(--line)}
-tr:last-child td{border-bottom:0}
-td b{font-weight:600}
-.ok{color:#0a7a4b;font-weight:600}
-.wn{color:#a05a00;font-weight:600}
-
-/* Calc */
-.calc{border:1px solid var(--line);padding:28px;margin-top:26px;display:flex;gap:32px;align-items:center;flex-wrap:wrap}
-.calc label{font-size:13px;font-weight:600;display:block;margin-bottom:8px}
-.calc input[type=range]{width:320px;max-width:100%;accent-color:var(--txt)}
-.calc .res{font-size:34px;font-weight:700;white-space:nowrap}
-.calc .res span{font-size:14px;color:var(--mut);font-weight:500}
-.formula{font-size:14px;color:var(--mut);margin-top:10px}
-
-/* Contacts */
-.cgrid{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:26px}
-@media(max-width:860px){.cgrid{grid-template-columns:1fr}}
-.cinfo p{font-size:14.5px;margin-bottom:6px}
-.cinfo a{color:var(--acc);text-decoration:none}
-form .row{margin-bottom:14px}
-form label{display:block;font-size:12.5px;font-weight:600;margin-bottom:6px}
-form input,form textarea{width:100%;padding:11px 14px;border:1px solid #c9ced6;font:inherit;font-size:14px;background:#fff}
-form input:focus,form textarea:focus{outline:2px solid var(--soft);border-color:var(--txt)}
-footer{border-top:1px solid var(--line);padding:36px 0;background:var(--soft)}
-footer p{font-size:12.5px;margin-bottom:8px}
-</style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #36aff7;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #0c93e7;
+        }
+    </style>
 </head>
-<body>
+<body class="antialiased selection:bg-helio-500 selection:text-white">
 
-<div class="topbar">
-  <div class="wrap">
-    <span>Разработчик: ООО ОКБ «Политехника» · Производитель: ООО НПФ «Политехника» · ККБ «Связной-В»</span>
-    <span>+7 (495) 783-01-67 · info@poli.ru · www.poli.ru</span>
-  </div>
-</div>
+    <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 glass-panel border-b border-helio-100/50 shadow-sm" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-helio-600 to-helio-400 flex items-center justify-center text-white shadow-md shadow-helio-500/20 group-hover:scale-105 transition-transform">
+                    <i data-lucide="wind" class="w-6 h-6"></i>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-2xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-helio-900 to-helio-600">ГЕЛИОПЛАН</span>
+                    <span class="text-[10px] font-semibold uppercase tracking-widest text-helio-500 -mt-1">Helikite Technology</span>
+                </div>
+            </a>
 
-<header class="main">
-  <div class="wrap hin">
-    <a class="logo" href="#top">ПАК «ГЕЛИОПЛАН» <span>| привязные аэростатные комплексы</span></a>
-    <nav class="main">
-      <a href="#photo">Фотоматериалы</a>
-      <a href="#overview">Общие сведения</a>
-      <a href="#models">Номенклатура</a>
-      <a href="#apps">Применение</a>
-      <a href="#protect">Защита объектов</a>
-      <a href="#train">Обучение</a>
-    </nav>
-    <a class="btn s" href="#contacts">Запросить ТТХ</a>
-  </div>
-</header>
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex items-center gap-8 font-medium text-sm text-slate-700">
+                <a href="#about" class="hover:text-helio-600 transition-colors">О концепции</a>
+                <a href="#why" class="hover:text-helio-600 transition-colors">Почему Гелиоплан</a>
+                <a href="#advantages" class="hover:text-helio-600 transition-colors">Преимущества</a>
+                <a href="#applications" class="hover:text-helio-600 transition-colors">Сферы применения</a>
+                <a href="#calculator" class="hover:text-helio-600 transition-colors">Калькулятор</a>
+            </nav>
 
-<!-- HERO -->
-<div class="hero" id="top">
-  <div class="wrap hero-grid">
-    <div>
-      <h1>Гибридные привязные аэростаты с каркасно-тканевым крылом</h1>
-      <p class="sub">Аэростаты серии «Гелиоплан» сочетают свойства газонаполненного воздушного шара и крыла дельтаплана. Компоновка обеспечивает работу почти в любую погоду и подъём полезной нагрузки на большие высоты по сравнению с любыми другими привязными аэростатами аналогичного объёма.</p>
-      <div class="kv">
-        <div><b>до 26 м/с</b><span>ветер на рабочей высоте</span></div>
-        <div><b>7–10 суток</b><span>дежурство без дозаправки</span></div>
-        <div><b>до 2500 м</b><span>высота подъёма</span></div>
-        <div><b>1–2 оператора</b><span>обслуживание расчётом</span></div>
-      </div>
-      <a class="btn" href="#models">Номенклатура изделий</a>
-      <a class="btn o" href="#photo" style="margin-left:10px">Фотоматериалы</a>
-    </div>
-    <figure class="hero-fig">
-      <img src="https://image.qwenlm.ai/public_source/75a36932-36a5-4ae9-9752-1dd064a7c194/2ff857580-f1bf-4195-a2f0-53bc18896ccd4450.png" alt="Гибридный привязной аэростат: эллипсоидная оболочка и каркасно-тканевое крыло в полёте">
-      <figcaption>Гибридный аэростат на привязи: оболочка и каркасно-тканевое крыло. Фотография из открытых источников (эксплуатанты аэростатов типа Helikite).</figcaption>
-    </figure>
-  </div>
-</div>
+            <div class="hidden md:flex items-center gap-4">
+                <a href="#contact" class="px-5 py-2.5 rounded-xl bg-helio-600 hover:bg-helio-700 text-white font-semibold text-sm shadow-md shadow-helio-600/30 transition-all hover:shadow-lg hover:shadow-helio-600/40 hover:-translate-y-0.5">
+                    Связаться с нами
+                </a>
+            </div>
 
-<!-- SLIDER -->
-<section id="photo" style="border-top:0">
-  <div class="wrap">
-    <span class="num">Фотоматериалы</span>
-    <h2>Конструкция, применение и наземная инфраструктура</h2>
-    <p style="max-width:820px">Фотографии аэростатов гибридной схемы и элементов наземного комплекса из открытых источников. Изображения выводятся без кадрирования и искажений пропорций.</p>
-
-    <!-- Для замены на сканы из каталога PDF: сохраните файлы в папку /img и укажите src="img/slide-1.jpg" и т.д. -->
-    <div class="carousel" id="carousel" style="margin-top:28px">
-      <div class="track" id="track">
-
-        <div class="slide">
-          <figure>
-            <span class="cnt">1 / 6</span>
-            <img src="https://image.qwenlm.ai/public_source/75a36932-36a5-4ae9-9752-1dd064a7c194/1ff857580-f1bf-4195-a2f0-53bc18896ccd7963.png" alt="Гибридный аэростат с каркасно-тканевым крылом на привязи" loading="lazy" onerror="this.style.display='none';this.closest('figure').classList.add('img-missing')">
-            <div class="ph">Изображение недоступно. Разместите скан из каталога в папке /img и укажите путь в атрибуте src.</div>
-          </figure>
-          <div class="cap"><div><b>Гибридная несущая схема</b><p>Газонаполненная оболочка эллипсоидной формы и каркасно-тканевое крыло под нижней частью баллона. Крыло создаёт дополнительную аэродинамическую подъёмную силу при ветре.</p></div><span class="src">Фото: uskites.com</span></div>
+            <!-- Mobile Menu Toggle Button -->
+            <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg text-slate-700 hover:bg-helio-100 focus:outline-none">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
         </div>
 
-        <div class="slide">
-          <figure>
-            <span class="cnt">2 / 6</span>
-            <img src="https://image.qwenlm.ai/public_source/75a36932-36a5-4ae9-9752-1dd064a7c194/3ff857580-f1bf-4195-a2f0-53bc18896ccd1824.png" alt="Вид на аэростат снизу: грузовая платформа и такелажные узлы" loading="lazy" onerror="this.style.display='none';this.closest('figure').classList.add('img-missing')">
-            <div class="ph">Изображение недоступно. Разместите скан из каталога в папке /img и укажите путь в атрибуте src.</div>
-          </figure>
-          <div class="cap"><div><b>Подвеска полезной нагрузки</b><p>Вид снизу: грузовая платформа, такелажные узлы и стропы подвески. Применяются одноосевые и двухосевые гиростабилизированные поворотные устройства.</p></div><span class="src">Фото: rc-zeppelin.com</span></div>
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white/95 backdrop-blur-md border-b border-slate-100 px-4 pt-2 pb-6 space-y-3">
+            <a href="#about" class="block py-2 text-slate-700 font-medium hover:text-helio-600">О концепции</a>
+            <a href="#why" class="block py-2 text-slate-700 font-medium hover:text-helio-600">Почему Гелиоплан</a>
+            <a href="#advantages" class="block py-2 text-slate-700 font-medium hover:text-helio-600">Преимущества</a>
+            <a href="#applications" class="block py-2 text-slate-700 font-medium hover:text-helio-600">Сферы применения</a>
+            <a href="#calculator" class="block py-2 text-slate-700 font-medium hover:text-helio-600">Калькулятор</a>
+            <a href="#contact" class="block w-full text-center mt-2 px-5 py-3 rounded-xl bg-helio-600 text-white font-semibold shadow-md">
+                Связаться с нами
+            </a>
+        </div>
+    </header>
+
+    <section class="relative pt-32 pb-20 md:pt-40 md:pb-32 overflow-hidden bg-hero-gradient">
+        <!-- Background decorative elements -->
+        <div class="absolute inset-0 pointer-events-none">
+            <div class="absolute top-1/4 left-10 w-96 h-96 bg-helio-300/30 rounded-full blur-3xl"></div>
+            <div class="absolute bottom-10 right-10 w-[500px] h-[500px] bg-helio-400/20 rounded-full blur-3xl"></div>
         </div>
 
-        <div class="slide">
-          <figure>
-            <span class="cnt">3 / 6</span>
-            <img src="https://image.qwenlm.ai/public_source/75a36932-36a5-4ae9-9752-1dd064a7c194/0ff857580-f1bf-4195-a2f0-53bc18896ccd7957.png" alt="Оболочка крупным планом: меридиональные сегменты и заправочный клапан" loading="lazy" onerror="this.style.display='none';this.closest('figure').classList.add('img-missing')">
-            <div class="ph">Изображение недоступно. Разместите скан из каталога в папке /img и укажите путь в атрибуте src.</div>
-          </figure>
-          <div class="cap"><div><b>Оболочка: меридиональная сборка</b><p>Консолидированная плёнка термопластичного полиуретана, термосварные меридиональные швы, заправочный клапан. Минимальная газопроницаемость обеспечивает дежурство 7–10 суток без дозаправки.</p></div><span class="src">Фото: Crowd Supply / Airpup</span></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid lg:grid-grid lg:grid-cols-12 gap-12 items-center">
+                
+                <div class="lg:col-span-7 space-y-8 text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 border border-helio-200 shadow-sm text-helio-700 text-xs md:text-sm font-semibold uppercase tracking-wider">
+                        <span class="w-2 h-2 rounded-full bg-helio-500 animate-ping"></span>
+                        Затентованное гибридное решение
+                    </div>
+
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-helio-950 tracking-tight leading-tight">
+                        Единственный в мире аэростат, которому <span class="bg-clip-text text-transparent bg-gradient-to-r from-helio-600 to-helio-400">ветер помогает</span> лететь выше
+                    </h1>
+
+                    <p class="text-lg sm:text-xl text-slate-6xl text-slate-600 max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed">
+                        Гелиоплан (Helikite) объединяет плавучесть гелия и аэродинамический подъем воздушного змея. Он преодолевает главный недостаток классических дирижаблей — устойчивость в шторм и сильный ветер.
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+                        <a href="#calculator" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-helio-600 hover:bg-helio-700 text-white font-bold text-base shadow-lg shadow-helio-600/30 hover:shadow-xl transition-all flex items-center justify-center gap-3">
+                            <i data-lucide="calculator" class="w-5 h-5"></i>
+                            Рассчитать нагрузку
+                        </a>
+                        <a href="#why" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-white/80 hover:bg-white text-slate-800 font-bold text-base border border-slate-200 shadow-sm hover:shadow transition-all flex items-center justify-center gap-2">
+                            Узнать больше
+                            <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                        </a>
+                    </div>
+
+                    <!-- Mini feature highlights -->
+                    <div class="grid grid-cols-3 gap-4 pt-6 border-t border-helio-200/60 max-w-lg mx-auto lg:mx-0">
+                        <div>
+                            <div class="text-2xl font-bold text-helio-900">До 100%</div>
+                            <div class="text-xs text-slate-500 font-medium">Беспосадочная устойчивость</div>
+                        </div>
+                        <div>
+                            <div class="text-2xl font-bold text-helio-900">2x - 3x</div>
+                            <div class="text-xs text-slate-500 font-medium">Больше полезной нагрузки</div>
+                        </div>
+                        <div>
+                            <div class="text-2xl font-bold text-helio-900">0..60+</div>
+                            <div class="text-xs text-slate-500 font-medium">Узлов скорости ветра</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Graphic/Visual Representation -->
+                <div class="lg:col-span-5 relative flex justify-center">
+                    <div class="relative w-full max-w-md">
+                        <!-- Glass Card container for Interactive Illustration -->
+                        <div class="floating rounded-3xl p-6 glass-panel shadow-2xl border border-white/80 relative">
+                            <div class="w-full h-80 bg-gradient-to-b from-sky-100 to-sky-50 rounded-2xl relative overflow-hidden flex flex-col items-center justify-center border border-sky-100">
+                                
+                                <!-- Decorative Cloud -->
+                                <div class="absolute top-4 left-6 text-sky-200 opacity-60">
+                                    <i data-lucide="cloud" class="w-12 h-12"></i>
+                                </div>
+                                <div class="absolute top-10 right-8 text-sky-200 opacity-40">
+                                    <i data-lucide="cloud" class="w-16 h-16"></i>
+                                </div>
+
+                                <!-- Helikite Illustration -->
+                                <div class="relative z-10 flex flex-col items-center">
+                                    <!-- Kite wings -->
+                                    <div class="w-48 h-20 bg-gradient-to-r from-helio-500 via-helio-400 to-helio-600 rounded-full shadow-lg relative flex items-center justify-center border-2 border-white">
+                                        <div class="text-xs font-black text-white tracking-widest uppercase opacity-90">HELIKITE</div>
+                                        <!-- Long keel structure -->
+                                        <div class="absolute -bottom-10 w-2 h-16 bg-slate-800 rounded-b-md shadow-md"></div>
+                                        <div class="absolute -bottom-8 w-24 h-1 bg-slate-700"></div>
+                                    </div>
+                                    <!-- Balloon body overlay effect -->
+                                    <div class="w-36 h-28 bg-white/40 rounded-full -mt-16 border border-white/80 backdrop-blur-xs flex items-center justify-center shadow-inner">
+                                        <span class="text-[10px] font-bold text-helio-900 uppercase tracking-wider">Гелий + Ветер</span>
+                                    </div>
+                                </div>
+
+                                <!-- Wind arrows graphic -->
+                                <div class="absolute bottom-6 left-4 flex items-center gap-1 text-helio-600 font-bold text-xs bg-white/80 px-3 py-1.5 rounded-lg shadow-sm">
+                                    <i data-lucide="wind" class="w-4 h-4 animate-pulse"></i>
+                                    Ветер толкает вверх
+                                </div>
+                                
+                                <div class="absolute bottom-6 right-4 text-xs font-semibold text-slate-500 bg-white/80 px-3 py-1.5 rounded-lg shadow-sm">
+                                    Всенепогодный
+                                </div>
+                            </div>
+
+                            <div class="mt-4 flex items-center justify-between text-xs text-slate-600 px-2 font-medium">
+                                <span class="flex items-center gap-1"><i data-lucide="shield-check" class="w-4 h-4 text-green-500"></i> Гарантия стабильности</span>
+                                <span class="flex items-center gap-1"><i data-lucide="zap" class="w-4 h-4 text-amber-500"></i> Патент UK & US</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
+    </section>
 
-        <div class="slide">
-          <figure>
-            <span class="cnt">4 / 6</span>
-            <img src="https://image.qwenlm.ai/public_source/75a36932-36a5-4ae9-9752-1dd064a7c194/4ff857580-f1bf-4195-a2f0-53bc18896ccd9085.png" alt="Развёртывание аэростатного комплекса с мобильного носителя" loading="lazy" onerror="this.style.display='none';this.closest('figure').classList.add('img-missing')">
-            <div class="ph">Изображение недоступно. Разместите скан из каталога в папке /img и укажите путь в атрибуте src.</div>
-          </figure>
-          <div class="cap"><div><b>Мобильное развёртывание</b><p>Комплекс на базе автомобильного прицепа: лебёдка, пусковая рама, док-станция. Развёртывание выполняется силами одного-двух операторов за время от одной минуты до полутора часов в зависимости от типоразмера.</p></div><span class="src">Фото: rc-zeppelin.com</span></div>
+    <section id="about" class="py-20 bg-white relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-xs font-bold uppercase tracking-widest text-helio-600 mb-2">Инновация в аэродинамике</h2>
+                <p class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">Что такое Гелиоплан (Helikite)?</p>
+                <div class="w-20 h-1.5 bg-helio-500 mx-auto mt-4 rounded-full"></div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="space-y-6">
+                    <p class="text-slate-600 text-lg leading-relaxed">
+                        Классические аэростаты и дирижабли имеют критический недостаток: при появлении сильного ветра они наклоняются и «прижимаются» к земле, создавая огромные опасные нагрузки на трос и теряя высоту.
+                    </p>
+                    <p class="text-slate-600 text-lg leading-relaxed">
+                        <strong class="text-slate-900">Гелиоплан решает эту проблему раз и навсегда.</strong> Это патентованный гибрид, объединяющий лучшую физику двух миров:
+                    </p>
+
+                    <div class="space-y-4 pt-2">
+                        <div class="flex gap-4 p-4 rounded-2xl bg-sky-50/80 border border-sky-100">
+                            <div class="w-12 h-12 rounded-xl bg-helio-600 text-white flex items-center justify-center shrink-0 shadow-md">
+                                <i data-lucide="circle-dot" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-slate-900 text-lg">Гелиевый баллон (Аэростат)</h3>
+                                <p class="text-slate-600 text-sm mt-1">Обеспечивает статическую подъемную силу в полный штиль и при старте. Аэростат держится в воздухе даже без ветра.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-4 p-4 rounded-2xl bg-sky-50/80 border border-sky-100">
+                            <div class="w-12 h-12 rounded-xl bg-helio-500 text-white flex items-center justify-center shrink-0 shadow-md">
+                                <i data-lucide="wind" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-slate-900 text-lg">Воздушный змей (Kite)</h3>
+                                <p class="text-slate-600 text-sm mt-1">При появлении ветра аэродинамическая крыльевая система начинает генерировать дополнительную динамическую подъемную силу.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Comparison Graphic -->
+                <div class="bg-gradient-to-br from-slate-900 to-helio-950 p-8 rounded-3xl text-white shadow-xl relative overflow-hidden">
+                    <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-helio-500/20 rounded-full blur-2xl"></div>
+                    
+                    <h3 class="text-xl font-bold mb-6 text-center border-b border-slate-700 pb-4">Сравнение при сильном ветре</h3>
+
+                    <div class="space-y-6">
+                        <!-- Old way -->
+                        <div class="p-4 rounded-xl bg-slate-800/60 border border-red-500/30">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="font-bold text-red-400 flex items-center gap-2">
+                                    <i data-lucide="x-circle" class="w-5 h-5"></i> Обычный аэростат / Blimp
+                                </span>
+                                <span class="text-xs bg-red-950 text-red-300 px-2 py-0.5 rounded">Падение высоты</span>
+                            </div>
+                            <p class="text-xs text-slate-300">Ветер прижимает аэростат вниз. Трос сильно натягивается, оборудование рискует разбиться о землю.</p>
+                        </div>
+
+                        <!-- Helikite way -->
+                        <div class="p-4 rounded-xl bg-helio-900/60 border border-helio-400/50 relative">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="font-bold text-helio-300 flex items-center gap-2">
+                                    <i data-lucide="check-circle-2" class="w-5 h-5 text-green-400"></i> Гелиоплан (Helikite)
+                                </span>
+                                <span class="text-xs bg-helio-600 text-white px-2 py-0.5 rounded font-bold">Подъем на максимум</span>
+                            </div>
+                            <p class="text-xs text-slate-200">Чем сильнее ветер, тем выше взлетает Гелиоплан. Ветер работает на вас, а не против вас.</p>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 pt-4 text-center border-t border-slate-800">
+                        <span class="text-xs text-slate-400">Результат: Абсолютная надежность в любых метеоусловиях</span>
+                    </div>
+                </div>
+            </div>
         </div>
+    </section>
 
-        <div class="slide">
-          <figure>
-            <span class="cnt">5 / 6</span>
-            <img src="https://image.qwenlm.ai/public_source/75a36932-36a5-4ae9-9752-1dd064a7c194/3ff857580-f1bf-4195-a2f0-53bc18896ccd7285.png" alt="Наземная платформа привязного аэростата с лебёдкой" loading="lazy" onerror="this.style.display='none';this.closest('figure').classList.add('img-missing')">
-            <div class="ph">Изображение недоступно. Разместите скан из каталога в папке /img и укажите путь в атрибуте src.</div>
-          </figure>
-          <div class="cap"><div><b>Наземная станция и пусковое устройство</b><p>Платформа с лебёдкой и элементами удержания аэростата (пример исполнения для крупных типоразмеров). Док-станция удерживает аэростат со сложенным крылом в широком диапазоне ветровых нагрузок.</p></div><span class="src">Фото: airborne-industries.com</span></div>
+    <section id="why" class="py-20 bg-gradient-to-b from-sky-50/50 to-white relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-xs font-bold uppercase tracking-widest text-helio-600 mb-2">Почему именно Гелиоплан</h2>
+                <p class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">Технологические преимущества перед аналогами</p>
+                <p class="text-slate-600 mt-4">На основе инженерных данных helikites.com/why-helikites</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Card 1 -->
+                <div class="glass-panel p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-helio-100 flex flex-col justify-between">
+                    <div>
+                        <div class="w-14 h-14 rounded-2xl bg-helio-100 text-helio-600 flex items-center justify-center mb-6">
+                            <i data-lucide="cloud-lightning" class="w-7 h-7"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-3">Всенепогодность (All-Weather)</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            Способен функционировать при ветре до 60+ узлов, во время дождя, снега или тумана, когда беспилотники (БПЛА) и стандартные коптеры вынуждены оставаться на земле.
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-slate-100 text-xs font-semibold text-helio-600 flex items-center gap-1">
+                        Работа 24/7/365 <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="glass-panel p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-helio-100 flex flex-col justify-between">
+                    <div>
+                        <div class="w-14 h-14 rounded-2xl bg-helio-100 text-helio-600 flex items-center justify-center mb-6">
+                            <i data-lucide="weight" class="w-7 h-7"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-3">Невероятная подъемная сила</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            Обеспечивает до 2–3 раз больше полезной нагрузки, чем традиционные круглые аэростаты аналогичного объема гелия, за счет подключаемой аэродинамической силы.
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-slate-100 text-xs font-semibold text-helio-600 flex items-center gap-1">
+                        Экономия гелия до 60% <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="glass-panel p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-helio-100 flex flex-col justify-between">
+                    <div>
+                        <div class="w-14 h-14 rounded-2xl bg-helio-100 text-helio-600 flex items-center justify-center mb-6">
+                            <i data-lucide="compass" class="w-7 h-7"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-3">Карбоновый киль и ось</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            Запатентованный длинный киль (Long Keel) и твердая лонжеронная ось из углеволокна удерживают направление strictly по ветру, полностью устраняя вращение и раскачку.
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-slate-100 text-xs font-semibold text-helio-600 flex items-center gap-1">
+                        Кристальная стабильность кадра <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="glass-panel p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-helio-100 flex flex-col justify-between">
+                    <div>
+                        <div class="w-14 h-14 rounded-2xl bg-helio-100 text-helio-600 flex items-center justify-center mb-6">
+                            <i data-lucide="timer" class="w-7 h-7"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-3">Автономность и Endurance</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            Способен оставаться в воздухе неделями без необходимости перезарядки батарей. Питание подается по тонкому лееру или от бортовых солнечных панелей.
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-slate-100 text-xs font-semibold text-helio-600 flex items-center gap-1">
+                        Дни и недели дежурства <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                    </div>
+                </div>
+
+                <!-- Card 5 -->
+                <div class="glass-panel p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-helio-100 flex flex-col justify-between">
+                    <div>
+                        <div class="w-14 h-14 rounded-2xl bg-helio-100 text-helio-600 flex items-center justify-center mb-6">
+                            <i data-lucide="dollar-sign" class="w-7 h-7"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-3">Низкая стоимость владения</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            Не требует дорогостоящих пилотов, топлива и сложного технического обслуживания. Управляется 1-2 операторами и готов к запуску за считанные минуты.
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-slate-100 text-xs font-semibold text-helio-600 flex items-center gap-1">
+                        Быстрый запуск <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                    </div>
+                </div>
+
+                <!-- Card 6 -->
+                <div class="glass-panel p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-helio-100 flex flex-col justify-between">
+                    <div>
+                        <div class="w-14 h-14 rounded-2xl bg-helio-100 text-helio-600 flex items-center justify-center mb-6">
+                            <i data-lucide="maximize" class="w-7 h-7"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-3">Компактность при транспортировке</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            В сдутом состоянии вся система легко помещается в багажник легкового автомобиля или защищенный кейс, что упрощает мобильную транспортировку.
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-slate-100 text-xs font-semibold text-helio-600 flex items-center gap-1">
+                        Мобильность решений <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                    </div>
+                </div>
+
+            </div>
         </div>
+    </section>
 
-        <div class="slide">
-          <figure>
-            <span class="cnt">6 / 6</span>
-            <img src="https://image.qwenlm.ai/public_source/75a36932-36a5-4ae9-9752-1dd064a7c194/7ff857580-f1bf-4195-a2f0-53bc18896ccd7805.png" alt="Архивная фотография аэростата-кайтуна с несущим крылом, 1944 год" loading="lazy" onerror="this.style.display='none';this.closest('figure').classList.add('img-missing')">
-            <div class="ph">Изображение недоступно. Разместите скан из каталога в папке /img и укажите путь в атрибуте src.</div>
-          </figure>
-          <div class="cap"><div><b>Преемственность конструкции: аэростат-кайтун, 1944 г.</b><p>Архивная фотография аэростата с несущими крыльевыми поверхностями (Jalbert kytoon). Схема «оболочка плюс крыло» отрабатывалась десятилетиями и реализована в современной серии «Гелиоплан».</p></div><span class="src">Фото: архив, Crowd Supply / Airpup</span></div>
+    <section id="advantages" class="py-20 bg-helio-950 text-white relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                
+                <div>
+                    <span class="text-helio-400 font-bold uppercase tracking-widest text-xs">Технический превосходный выбор</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold mt-2 mb-6">Почему клиенты по всему миру выбирают Helikite</h2>
+                    <p class="text-slate-300 mb-8 leading-relaxed">
+                        Традиционные квадрокоптеры ограничены 30 минутами полета и страдают от ветра. Стандартные аэростаты разворачивает и сносит штормом. Гелиоплан лишен этих ограничений.
+                    </p>
+
+                    <div class="space-y-4">
+                        <div class="flex items-start gap-4 p-3 rounded-xl hover:bg-white/5 transition-colors">
+                            <div class="p-2 rounded-lg bg-helio-500/20 text-helio-300 mt-1">
+                                <i data-lucide="radio" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-white text-base">Дальность радиосвязи и покрытия</h4>
+                                <p class="text-slate-400 text-sm">Подъем антенны 4G/5G/LoRa или радиорелейного модуля на высоту до 300+ метров увеличивает покрытие территории в десятки раз.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4 p-3 rounded-xl hover:bg-white/5 transition-colors">
+                            <div class="p-2 rounded-lg bg-helio-500/20 text-helio-300 mt-1">
+                                <i data-lucide="camera" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-white text-base">Стабильное визирование и оптика</h4>
+                                <p class="text-slate-400 text-sm">Отсутствие вибрации от моторов позволяет получать высокочеткие снимки и тепловизионное видео высокого разрешения.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4 p-3 rounded-xl hover:bg-white/5 transition-colors">
+                            <div class="p-2 rounded-lg bg-helio-500/20 text-helio-300 mt-1">
+                                <i data-lucide="feather" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-white text-base">Меньший объем гелия</h4>
+                                <p class="text-slate-400 text-sm">Вам не нужны гигантские баллоны. Половину работы делает аэродинамика крыла.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Visual stat block -->
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="p-6 rounded-2xl glass-dark border border-slate-700/50 flex flex-col justify-center text-center">
+                        <div class="text-4xl lg:text-5xl font-black text-helio-400 mb-2">0 Вт</div>
+                        <div class="text-sm font-semibold text-slate-200">Затрат энергии на подъем</div>
+                        <p class="text-xs text-slate-400 mt-2">Пассивный подъем благодаря физике атмосферы</p>
+                    </div>
+
+                    <div class="p-6 rounded-2xl glass-dark border border-slate-700/50 flex flex-col justify-center text-center">
+                        <div class="text-4xl lg:text-5xl font-black text-helio-400 mb-2">100%</div>
+                        <div class="text-sm font-semibold text-slate-200">Надежность при ветре</div>
+                        <p class="text-xs text-slate-400 mt-2">Не падает при порывах ветра</p>
+                    </div>
+
+                    <div class="p-6 rounded-2xl glass-dark border border-slate-700/50 flex flex-col justify-center text-center">
+                        <div class="text-4xl lg:text-5xl font-black text-helio-400 mb-2">15 км+</div>
+                        <div class="text-sm font-semibold text-slate-200">Горизонт наблюдения</div>
+                        <p class="text-xs text-slate-400 mt-2">Прямая видимость с высоты</p>
+                    </div>
+
+                    <div class="p-6 rounded-2xl glass-dark border border-slate-700/50 flex flex-col justify-center text-center">
+                        <div class="text-4xl lg:text-5xl font-black text-helio-400 mb-2">&lt; 15 мин</div>
+                        <div class="text-sm font-semibold text-slate-200">Время развертывания</div>
+                        <p class="text-xs text-slate-400 mt-2">Быстрый запуск в любых условиях</p>
+                    </div>
+                </div>
+
+            </div>
         </div>
+    </section>
 
-      </div>
-      <button class="car-btn car-prev" id="prev" aria-label="Предыдущий слайд">&#8249;</button>
-      <button class="car-btn car-next" id="next" aria-label="Следующий слайд">&#8250;</button>
-      <div class="dots" id="dots"></div>
-    </div>
-  </div>
-</section>
+    <section id="applications" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-xs font-bold uppercase tracking-widest text-helio-600 mb-2">Универсальность решения</h2>
+                <p class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">Сферы применения Гелиоплана</p>
+                <p class="text-slate-600 mt-4">Гибкая адаптация под любые задачи разведки, связи и мониторинга</p>
+            </div>
 
-<!-- OVERVIEW -->
-<section id="overview">
-  <div class="wrap">
-    <span class="num">01 · Общие сведения</span>
-    <h2>Ключевые преимущества серии</h2>
-    <p style="max-width:860px">Линейка классифицируется по объёму рабочего газа. Ориентировочное правило подбора — около 1 кг полезной нагрузки на каждые 2–2,5 м³ гелия при стандартных температуре и давлении, без учёта массы троса.</p>
-    <div class="adv">
-      <div><b>Объём газа к подъёмной силе</b><p>Высокое отношение объёма гелия к подъёмной силе.</p></div>
-      <div><b>Аэродинамическая подъёмная сила</b><p>Дополнительная подъёмная сила за счёт каркасно-тканевого крыла при ветре.</p></div>
-      <div><b>Отсутствие сложной подстройки</b><p>Компоновка не требует постоянной регулировки в эксплуатации.</p></div>
-      <div><b>Устойчивость при сильном ветре</b><p>Киль разворачивается по потоку; устойчивость по тангажу и курсу.</p></div>
-      <div><b>Малый расчёт</b><p>Обслуживание одним-двумя операторами.</p></div>
-    </div>
-    <div class="classes">
-      <div><b>Малые системы, 1–3 м³</b><p>Быстрое развёртывание и краткосрочное локальное наблюдение. Ручная лебёдка, упаковка — рюкзак.</p></div>
-      <div><b>Средние системы, 10–18 м³</b><p>Тактические задачи наблюдения. Электролебёдка или лебёдка ДВС на пусковой раме, прицеп.</p></div>
-      <div><b>Крупные системы, 45–200 м³</b><p>Длительное наблюдение больших территорий и тяжёлые гиростабилизированные полезные нагрузки.</p></div>
-    </div>
-  </div>
-</section>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200/80 hover:border-helio-300 transition-all group hover:shadow-lg">
+                    <div class="w-12 h-12 rounded-xl bg-helio-600 text-white flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+                        <i data-lucide="eye" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-2">Наблюдение и Безопасность</h3>
+                    <p class="text-slate-600 text-sm">Круглосуточный видеомониторинг границ, масовых мероприятий, периметров стратегических объектов с оптическими и тепловизионными камерами.</p>
+                </div>
 
-<!-- DESIGN -->
-<section id="design">
-  <div class="wrap">
-    <span class="num">02 · Конструкция и устойчивость</span>
-    <h2>Технические узлы комплекса</h2>
-    <div class="tbl">
-      <table>
-        <thead><tr><th style="width:26%">Узел</th><th>Исполнение и характеристики</th></tr></thead>
-        <tbody>
-          <tr><td><b>Оболочка (баллон)</b></td><td>Эллипсоид вращения, меридиональные сегменты плёнки ТПУ, термосварные швы; типовые размеры базовой модели 3,7 × 5,73 м; датчики давления и температуры; заправочный и предохранительный клапаны.</td></tr>
-          <tr><td><b>Каркасно-тканевое крыло</b></td><td>Каркас из карбоновых трубок, тканевое полотно, консоли из алюминия или титана; угол атаки 15–25°; складывается для удержания в док-станции.</td></tr>
-          <tr><td><b>Такелаж и подвес ПН</b></td><td>Армированные точки подвеса; стропы из ПА и СВМПЭ; грузовая платформа с одно- или двухосевым гиростабилизированным поворотным устройством.</td></tr>
-          <tr><td><b>Кабель-трос</b></td><td>Несущий трос (СВМПЭ или арамидный) с высоковольтными жилами питания (1500–2000 В, до 600–1500 Вт) и двумя одномодовыми оптоволокнами (дуплекс); резервный радиоканал Wi-Fi.</td></tr>
-          <tr><td><b>Лебёдки и пусковые устройства</b></td><td>Ручные (1–3 м³); электролебёдки на пусковой раме (до 15 м³); лебёдки ДВС с тросоукладчиком на автоприцепе (18–200 м³, 0,5 м/с); док-станция и рампа баллонов.</td></tr>
-          <tr><td><b>Газовая система</b></td><td>Гелий или водород; баллоны стальные и композитные 150–350 атм (под спецзаказ 750); передвижной генератор водорода на базе УАЗ-452 (до 35 атм).</td></tr>
-          <tr><td><b>Электропитание борта</b></td><td>Быстросменные бортовые АКБ; высоковольтный кабель-трос; бортовые солнечные батареи до 250 Вт.</td></tr>
-          <tr><td><b>Аварийная система</b></td><td>Сброс ПН на парашюте, надувной модуль плавучести, радиомаяк; аварийный сброс давления в оболочке для исключения уноса шара при обрыве троса; активация от датчиков давления и натяжения.</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <p style="margin-top:18px;max-width:860px">Сигарообразные привязные дирижабли при сильном ветре теряют устойчивость: поток поднимает хвостовое оперение, нос «ныряет», возникают рыскание и «восьмёрки». Гибридная схема «Гелиоплана» при порыве ветра увеличивает угол атаки крыла и подъёмную силу, а киль автоматически разворачивается по потоку — аппарат стабилизируется без управляющих сигналов.</p>
-  </div>
-</section>
+                <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200/80 hover:border-helio-300 transition-all group hover:shadow-lg">
+                    <div class="w-12 h-12 rounded-xl bg-helio-600 text-white flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+                        <i data-lucide="wifi" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-2">Связь и Ретрансляция</h3>
+                    <p class="text-slate-600 text-sm">Быстрое развертывание временных сетей связи LTE/5G, Mesh-сетей, радиорелейных каналов в зонах ЧС или удаленных районах.</p>
+                </div>
 
-<!-- MODELS -->
-<section id="models">
-  <div class="wrap">
-    <span class="num">03 · Номенклатура</span>
-    <h2>Типоразмеры и характеристики изделий</h2>
-    <p>Аэростаты до 10–75 м³ могут храниться в помещениях и ангарах или транспортироваться в автофургоне заполненными и готовыми к запуску.</p>
-    <div class="tbl">
-      <table>
-        <thead><tr><th>Изделие, м³</th><th>Пуск / базирование</th><th>Подъёмная сила, кг</th><th>Высота подъёма, м</th><th>Макс. ветер, м/с</th><th>Время запуска</th></tr></thead>
-        <tbody>
-          <tr><td><b>1</b></td><td>Ручная лебёдка, упаковка рюкзак</td><td>0,3</td><td>150</td><td>13</td><td>1 мин</td></tr>
-          <tr><td><b>2</b></td><td>Ручная лебёдка, упаковка рюкзак</td><td>0,8</td><td>150</td><td>15</td><td>1 мин</td></tr>
-          <tr><td><b>3</b></td><td>Ручная лебёдка, упаковка рюкзак</td><td>1,3</td><td>300</td><td>16</td><td>2 мин</td></tr>
-          <tr><td><b>10</b></td><td>Электролебёдка, пусковая рама; прицеп</td><td>5,5</td><td>300</td><td>20</td><td>15 мин</td></tr>
-          <tr><td><b>15</b></td><td>Электролебёдка, пусковая рама; прицеп</td><td>6</td><td>500</td><td>20</td><td>15 мин</td></tr>
-          <tr><td><b>18</b></td><td>Электролебёдка / лебёдка ДВС, пусковая рама; прицеп</td><td>8</td><td>700</td><td>20</td><td>30 мин</td></tr>
-          <tr><td><b>45</b></td><td>Лебёдка ДВС, пусковая рама; прицеп</td><td>14–20</td><td>1000</td><td>22</td><td>45 мин</td></tr>
-          <tr><td><b>75</b></td><td>Лебёдка ДВС, пусковая рама; прицеп</td><td>35</td><td>1200</td><td>24</td><td>1 ч</td></tr>
-          <tr><td><b>100</b></td><td>Лебёдка ДВС, пусковая рама; прицеп</td><td>50</td><td>2000</td><td>24</td><td>1 ч</td></tr>
-          <tr><td><b>200*</b></td><td>Лебёдка ДВС, пусковая рама; прицеп</td><td>100</td><td>2500</td><td>27</td><td>1,5 ч</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</section>
+                <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200/80 hover:border-helio-300 transition-all group hover:shadow-lg">
+                    <div class="w-12 h-12 rounded-xl bg-helio-600 text-white flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+                        <i data-lucide="flame" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-2">Мониторинг Пожаров и ЧС</h3>
+                    <p class="text-slate-600 text-sm">Обнаружение очагов лесных пожаров на ранней стадии. Наблюдение за районами затоплений и координация спасателей.</p>
+                </div>
 
-<!-- RADIO -->
-<section id="radio">
-  <div class="wrap">
-    <span class="num">04 · Радиогоризонт ретрансляторов</span>
-    <h2>Дальность радиосвязи и наблюдения</h2>
-    <p style="max-width:820px">Высота подъёма аэростата напрямую определяет дальность радиосвязи и наблюдения. Расчёт для открытой местности: D = 4,12 · √H, где D — дальность в километрах, H — высота подъёма в метрах. Дистанция может быть увеличена широкополосной ретрансляцией по цепочке свободно летящих по ветру атмосферных тактических аэростатов.</p>
-    <div class="tbl" style="margin-top:22px">
-      <table style="min-width:420px">
-        <thead><tr><th>Высота подъёма H</th><th>Дальность D</th></tr></thead>
-        <tbody>
-          <tr><td>100 м</td><td><b>≈ 41 км</b></td></tr>
-          <tr><td>500 м</td><td><b>≈ 92 км</b></td></tr>
-          <tr><td>1000 м</td><td><b>≈ 130 км</b></td></tr>
-          <tr><td>2400 м</td><td><b>≈ 202 км</b></td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="calc">
-      <div style="flex:1;min-width:260px">
-        <label for="hRange">Высота подъёма H, м: <span id="hVal" style="font-weight:700">500</span></label>
-        <input type="range" id="hRange" min="50" max="2500" step="10" value="500">
-        <div class="formula">D = 4,12 · √H. При наличии возвышенностей эффективная дальность снижается; точный расчёт по профилю местности — в RadioMobile или аналогичной программе.</div>
-      </div>
-      <div class="res" id="dOut">≈ 92 <span>км</span></div>
-    </div>
-  </div>
-</section>
+                <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200/80 hover:border-helio-300 transition-all group hover:shadow-lg">
+                    <div class="w-12 h-12 rounded-xl bg-helio-600 text-white flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+                        <i data-lucide="microscope" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-2">Научные исследования</h3>
+                    <p class="text-slate-600 text-sm">Замеры параметров атмосферы, исследование качества воздуха, мониторинг миграции птиц и морских животных.</p>
+                </div>
 
-<!-- APPS -->
-<section id="apps">
-  <div class="wrap">
-    <span class="num">05 · Применение и полезные нагрузки</span>
-    <h2>Задачи и состав полезной нагрузки</h2>
-    <div class="cgrid" style="margin-top:0">
-      <div>
-        <h3>Задачи применения</h3>
-        <ol class="cols2" style="columns:1">
-          <li>Мониторинг пожарной ситуации, паводков и ЧС</li>
-          <li>Обеспечение связи на отдалённых объектах и в условиях ЧС</li>
-          <li>Контроль границ</li>
-          <li>Охрана военных объектов</li>
-          <li>Защита критической инфраструктуры</li>
-          <li>Защита объектов нефтегазовой отрасли</li>
-          <li>Морское наблюдение</li>
-          <li>Охрана портов, контроль ледовой обстановки</li>
-          <li>Мониторинг полигонов</li>
-          <li>Наблюдение за дорожной обстановкой и массовыми мероприятиями</li>
-        </ol>
-        <p style="font-size:13.5px;margin-top:12px">Лёгкие системы также позиционируются для журналистики, киносъёмки, экологического мониторинга, охраны частных объектов, контроля трафика и документирования ДТП.</p>
-      </div>
-      <div>
-        <h3>Штатные полезные нагрузки</h3>
-        <ol class="cols2" style="columns:1">
-          <li>Управляемые видео- и ИК-камеры с гиростабилизированным подвесом</li>
-          <li>Ретрансляторы широкополосного радиосигнала</li>
-          <li>Системы РЭБ</li>
-          <li>Малые радары</li>
-          <li>Противодроновые сети объектовой охраны</li>
-          <li>Сброс противодроновых и ударных БПЛА (привязные и свободно летающие модификации)</li>
-          <li>Базовые станции сотовой связи 5G, LTE</li>
-          <li>Пеленгаторы источников радиоизлучения (РТР, РЭР)</li>
-          <li>Акустические детекторы дронов и артиллерийских выстрелов</li>
-          <li>Направленные антенны (аэромачты)</li>
-          <li>Мультиспектральные комплексы</li>
-          <li>MESH / MANET приёмопередатчики</li>
-          <li>Бортовые метеостанции с радиолинком</li>
-        </ol>
-      </div>
-    </div>
-  </div>
-</section>
+                <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200/80 hover:border-helio-300 transition-all group hover:shadow-lg">
+                    <div class="w-12 h-12 rounded-xl bg-helio-600 text-white flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+                        <i data-lucide="map" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-2">Аэросъемка и Картография</h3>
+                    <p class="text-slate-600 text-sm">Создание ортофотопланов высокой точности без риска падения дорогостоящего оборудования, характерного для коптеров.</p>
+                </div>
 
-<!-- PROTECT -->
-<section id="protect">
-  <div class="wrap">
-    <span class="num">06 · Защита объектов</span>
-    <h2>Аэростатная гребёнка Ø6 мм СВМПЭ против ударных БПЛА</h2>
-    <p style="max-width:860px">Расчёт эффективности барьера для объектов Республики Татарстан (удаление от границы 1050–1450 км). Параметры барьера: 11 аэростатов объёмом 235 м³, шаг узлов 100 м; троса Ø6 мм СВМПЭ (Dyneema SK78), усилие разрыва 47 кН, шаг 4 м; рабочее окно 30–144 м; длина линии 1000 м; штатное удаление от объекта 350–400 м.</p>
-    <div class="tbl">
-      <table>
-        <thead><tr><th>Средство поражения</th><th>Дальность</th><th>Кинетическая энергия, кДж</th><th>Вероятность поражения</th><th>Вердикт</th></tr></thead>
-        <tbody>
-          <tr><td><b>FP-1 (Fire Point)</b></td><td>1400 км</td><td>92,6</td><td>0,81–0,83</td><td class="ok">Сбитие (гарантированное)</td></tr>
-          <tr><td><b>Ан-196 «Лютый»</b></td><td>2000 км</td><td>392,1</td><td>0,83–0,84</td><td class="ok">Сбитие (гарантированное)</td></tr>
-          <tr><td><b>FP-5 «Фламинго»</b> (тяжёлая КР, 6 т)</td><td>3000 км</td><td>208 912</td><td>0,72–0,83</td><td class="wn">Сбитие (высокая вероятность), требуется усиление яруса</td></tr>
-          <tr><td><b>«Барс RS»</b> (граничный)</td><td>1000 км</td><td>1 157,4</td><td>0,79–0,82</td><td class="ok">Сбитие (гарантированное)</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="tbl">
-      <table>
-        <thead><tr><th>Параметр позиционирования</th><th>Значение</th><th>Обоснование</th></tr></thead>
-        <tbody>
-          <tr><td>Отступ от периметра</td><td><b>200–250 м</b></td><td>Компромисс между пологими траекториями FP-1 и крутыми траекториями Ан-196</td></tr>
-          <tr><td>Направление контроля</td><td><b>Сектор З–ЮЗ</b></td><td>Дистанция до границы 1050+ км: атака возможна только из этого сектора</td></tr>
-          <tr><td>Плотность узлов на З-фронте</td><td><b>Шаг 55 м (двойная)</b></td><td>Против одновременного пуска нескольких FP-1</td></tr>
-          <tr><td>Дополнительная линия против КР</td><td><b>Высота 60–144 м, +4 троса</b></td><td>Против крейсерского полёта FP-5 на высотах 100–150 м</td></tr>
-          <tr><td>Диаметр троса на З-секторе</td><td><b>Ø8 мм для верхних 30 % окна</b></td><td>Увеличение защищённой энергии до 6,2 кДж на трос</td></tr>
-          <tr><td>Оптико-акустический пост</td><td><b>500 м от барьера</b></td><td>Раннее обнаружение, проактивный режим работы лебёдок</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</section>
+                <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200/80 hover:border-helio-300 transition-all group hover:shadow-lg">
+                    <div class="w-12 h-12 rounded-xl bg-helio-600 text-white flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+                        <i data-lucide="shield" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-2">Оборона и Спецслужбы</h3>
+                    <p class="text-slate-600 text-sm">Тактическая разведка местности, обнаружение целей, контроль морских рубежей с минимальным радиоэлектронным следом.</p>
+                </div>
 
-<!-- TRAINING -->
-<section id="train">
-  <div class="wrap">
-    <span class="num">07 · Обучение расчётов</span>
-    <h2>Подготовка и аттестация операторов ПАК</h2>
-    <p style="max-width:860px">Подготовка проводится сертифицированными инструкторами производителя в течение 5 рабочих дней: на базе производителя в пгт Редкино (Тверская область) или на согласованном с заказчиком полигоне. По результатам — аттестация и выдача свидетельства оператора ПАК.</p>
-    <div class="tbl">
-      <table>
-        <thead><tr><th style="width:14%">День</th><th>Содержание занятий</th></tr></thead>
-        <tbody>
-          <tr><td><b>День 1</b></td><td>Теоретический блок: конструкция ПАК, оболочка, крыло, трос, лебёдка, такелаж. Устройство газобаллонной системы. Правила и нормы безопасности.</td></tr>
-          <tr><td><b>День 2</b></td><td>Практика: сборка и разборка пусковой рамы, проверка оболочки и крыла, строповка подвески ПН. Заправка аэростата (инертный газ / водород). Работа с лебёдкой и кабель-тросом.</td></tr>
-          <tr><td><b>День 3</b></td><td>Практика: первый подъём с базовой полезной нагрузкой (балласт). Контроль высоты, натяжения троса, метеоданных. Отработка нормального спуска.</td></tr>
-          <tr><td><b>День 4</b></td><td>Работа с целевой полезной нагрузкой: видеокамера / ИК, ретранслятор. Настройка гиростабилизированной платформы. Мониторинг видеопотока и уровня сигнала. Аварийный сброс ПН, аварийный спуск аэростата.</td></tr>
-          <tr><td><b>День 5</b></td><td>Дежурство 7–10 ч: самостоятельная смена с ведением журнала. Устный экзамен и практическая аттестация. Зачёт по нормативным требованиям (ВК РФ, ФП ИВП, ПП № 138).</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <p style="font-size:13.5px;margin-top:16px;max-width:860px">Программа включает: основы Воздушного кодекса РФ; материальную часть пусковых устройств и аэростата; работу с газобаллонным оборудованием под давлением; такелажные работы и грузоподъёмное оборудование; высоковольтные и низковольтные электросети; основы картографии, навигации и метеорологии; основные виды полезных нагрузок.</p>
-  </div>
-</section>
+            </div>
+        </div>
+    </section>
 
-<!-- CONTACTS -->
-<section id="contacts">
-  <div class="wrap">
-    <span class="num">08 · Контакты</span>
-    <h2>Запрос технических материалов</h2>
-    <div class="cgrid">
-      <div class="cinfo">
-        <h3>Разработчик и производитель</h3>
-        <p>ООО ОКБ «Политехника» · ООО Научно-производственная фирма «Политехника»</p>
-        <p>109316, Российская Федерация, г. Москва, Волгоградский проспект, д. 47, БЦ «Куб»</p>
-        <p>Тел.: <a href="tel:+74957830167">+7 (495) 783-01-67</a></p>
-        <p>E-mail: <a href="mailto:info@poli.ru">info@poli.ru</a></p>
-        <p>Сайт: <a href="https://www.poli.ru">www.poli.ru</a></p>
-        <h3 style="margin-top:22px">Кооперация ККБ «Связной-В»</h3>
-        <p style="font-size:13.5px">ОАО «ЦНИИ-Маш» РК (системный интегратор); АО «МНИИРС»; ООО «ИНТЕП»; АО «АМГ Бизнес Решения»; ООО «Сан-ТЭЛ»; ООО «НПП „Технос-РМ“»; ООО «Радий ТН»; ООО «ИнВейв»; ООО «ЦЕНТР ДИНАРУС»; ООО «Тристан»; ООО «СТЦ»; ООО ИЦ «Автономная энергетика».</p>
-      </div>
-      <form id="reqForm">
-        <div class="row"><label for="fName">Организация и должность</label><input id="fName" required></div>
-        <div class="row"><label for="fMail">Электронная почта</label><input id="fMail" type="email" required></div>
-        <div class="row"><label for="fMsg">Запрос (интересующие типоразмеры, задачи, условия применения)</label><textarea id="fMsg" rows="5" required></textarea></div>
-        <button class="btn" type="submit">Отправить запрос</button>
-        <p style="font-size:12.5px;margin-top:12px">Запрос формируется в виде письма на адрес info@poli.ru в почтовом клиенте пользователя.</p>
-      </form>
-    </div>
-  </div>
-</section>
+    <section id="calculator" class="py-20 bg-gradient-to-br from-helio-50 via-sky-100 to-white relative">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <span class="text-helio-600 font-bold uppercase tracking-widest text-xs">Интерактивный симулятор</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-2">Калькулятор подъемной силы</h2>
+                <p class="text-slate-600 mt-3 text-sm">Оцените потенциал подъемной силы в зависимости от объема гелия и скорости ветра</p>
+            </div>
 
-<footer>
-  <div class="wrap">
-    <p>Привязные аэростатные комплексы «Гелиоплан». Материалы: каталог ОКБ-НПФ «Гелиоплан» 2026; УМК оператора ПАК, версия 1.0, июнь 2026; расчёт эффективности гребёнки СВМПЭ для объектов Республики Татарстан.</p>
-    <p>Испытания 2022–2026 гг.: экспериментальная площадка пгт Редкино (Тверская обл.), аэродром Коломна, полигоны Смолино, Мулино, Кадамовский, объекты в Кстово.</p>
-    <p>Фотографии слайдера: открытые источники (uskites.com, rc-zeppelin.com, airborne-industries.com, архивные материалы). Для использования сканов из каталога замените атрибуты src на файлы папки /img.</p>
-  </div>
-</footer>
+            <div class="glass-panel rounded-3xl p-6 sm:p-10 shadow-xl border border-white">
+                <div class="grid md:grid-cols-2 gap-10 items-center">
+                    
+                    <!-- Sliders / Inputs -->
+                    <div class="space-y-6">
+                        <!-- Helium Volume Slider -->
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <label for="helium-range" class="text-sm font-bold text-slate-800">Объем гелиевого баллона (м³):</label>
+                                <span id="helium-val" class="text-lg font-extrabold text-helio-600 bg-helio-100 px-3 py-1 rounded-lg">3.0 м³</span>
+                            </div>
+                            <input type="range" id="helium-range" min="1" max="15" step="0.5" value="3" class="w-full h-2.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-helio-600">
+                            <div class="flex justify-between text-[11px] text-slate-400 mt-1">
+                                <span>1 м³ (Компактный)</span>
+                                <span>15 м³ (Промышленный)</span>
+                            </div>
+                        </div>
 
-<script>
-/* Слайдер */
-const track=document.getElementById('track'),slides=track.children,len=slides.length;
-const dotsBox=document.getElementById('dots');
-let idx=0,timer=null;
-for(let i=0;i<len;i++){const d=document.createElement('button');d.className='dot'+(i===0?' on':'');d.setAttribute('aria-label','Слайд '+(i+1));d.onclick=()=>{go(i);restart();};dotsBox.appendChild(d);}
-const dots=dotsBox.children;
-function go(n){idx=(n+len)%len;track.style.transform='translateX(-'+idx*100+'%)';for(let i=0;i<len;i++)dots[i].classList.toggle('on',i===idx);}
-function restart(){clearInterval(timer);timer=setInterval(()=>go(idx+1),7000);}
-document.getElementById('prev').onclick=()=>{go(idx-1);restart();};
-document.getElementById('next').onclick=()=>{go(idx+1);restart();};
-const car=document.getElementById('carousel');
-car.addEventListener('mouseenter',()=>clearInterval(timer));
-car.addEventListener('mouseleave',restart);
-let sx=null;
-track.addEventListener('pointerdown',e=>{sx=e.clientX;});
-track.addEventListener('pointerup',e=>{if(sx===null)return;const dx=e.clientX-sx;if(Math.abs(dx)>50){go(idx+(dx<0?1:-1));restart();}sx=null;});
-car.addEventListener('keydown',e=>{if(e.key==='ArrowLeft'){go(idx-1);restart();}if(e.key==='ArrowRight'){go(idx+1);restart();}});
-restart();
+                        <!-- Wind Speed Slider -->
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <label for="wind-range" class="text-sm font-bold text-slate-800">Скорость ветра (км/ч):</label>
+                                <span id="wind-val" class="text-lg font-extrabold text-helio-600 bg-helio-100 px-3 py-1 rounded-lg">25 км/ч</span>
+                            </div>
+                            <input type="range" id="wind-range" min="0" max="70" step="1" value="25" class="w-full h-2.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-helio-600">
+                            <div class="flex justify-between text-[11px] text-slate-400 mt-1">
+                                <span>0 (Штиль)</span>
+                                <span>70 (Сильный шторм)</span>
+                            </div>
+                        </div>
 
-/* Калькулятор радиогоризонта */
-const hr=document.getElementById('hRange'),hv=document.getElementById('hVal'),dOut=document.getElementById('dOut');
-function calc(){const H=+hr.value;hv.textContent=H;dOut.innerHTML='≈ '+Math.round(4.12*Math.sqrt(H))+' <span>км</span>';}
-hr.addEventListener('input',calc);calc();
+                        <!-- Info Box -->
+                        <div class="p-4 rounded-xl bg-helio-50 border border-helio-200/80 text-xs text-slate-600 space-y-1">
+                            <div class="font-bold text-helio-900 flex items-center gap-1.5">
+                                <i data-lucide="info" class="w-4 h-4 text-helio-600"></i> Как это работает:
+                            </div>
+                            <p>Статический подъем равен ~1 кг на 1 м³ гелия. Ветер создает динамический подъем крыла змея, умножая итоговую полезную нагрузку.</p>
+                        </div>
+                    </div>
 
-/* Форма запроса */
-document.getElementById('reqForm').addEventListener('submit',e=>{
-  e.preventDefault();
-  const n=document.getElementById('fName').value,m=document.getElementById('fMail').value,t=document.getElementById('fMsg').value;
-  location.href='mailto:info@poli.ru?subject='+encodeURIComponent('Запрос ТТХ ПАК «Гелиоплан» — '+n)+'&body='+encodeURIComponent('Контакт: '+m+'\n\n'+t);
-});
-</script>
+                    <!-- Output Results Card -->
+                    <div class="bg-gradient-to-br from-helio-900 to-helio-950 rounded-2xl p-6 text-white text-center shadow-inner flex flex-col justify-between h-full relative overflow-hidden">
+                        <div class="absolute top-0 right-0 p-8 opacity-10">
+                            <i data-lucide="scale" class="w-32 h-32 text-white"></i>
+                        </div>
+
+                        <div>
+                            <span class="text-xs uppercase font-semibold text-helio-300 tracking-wider">Расчетная полезная нагрузка</span>
+                            <div class="my-4">
+                                <span id="payload-result" class="text-5xl sm:text-6xl font-black text-white tracking-tight">4.2</span>
+                                <span class="text-2xl font-bold text-helio-300 ml-1">кг</span>
+                            </div>
+                            <p class="text-xs text-slate-300">Итоговый вес оборудования, которое можно поднять</p>
+                        </div>
+
+                        <div class="mt-6 pt-6 border-t border-slate-700/60 grid grid-cols-2 gap-2 text-left">
+                            <div>
+                                <div class="text-[11px] text-slate-400">Статическая сила:</div>
+                                <div id="static-lift" class="font-bold text-sm text-slate-200">3.0 кг</div>
+                            </div>
+                            <div>
+                                <div class="text-[11px] text-slate-400">Динамический бонус ветра:</div>
+                                <div id="dynamic-lift" class="font-bold text-sm text-helio-400">+1.2 кг</div>
+                            </div>
+                        </div>
+
+                        <a href="#contact" class="mt-6 w-full py-3 rounded-xl bg-helio-500 hover:bg-helio-400 text-white font-bold text-sm transition-colors block text-center shadow-md">
+                            Запросить КП под эти параметры
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-20 bg-white relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-12 gap-12">
+                
+                <div class="lg:col-span-5 space-y-6">
+                    <span class="text-helio-600 font-bold uppercase tracking-widest text-xs">Свяжитесь с нами</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">Готовы обсудить ваш проект?</h2>
+                    <p class="text-slate-600 leading-relaxed">
+                        Наши инженеры помогут подобрать оптимальную модификацию Гелиоплана, систему леера и полезную нагрузку под ваши уникальные задачи.
+                    </p>
+
+                    <div class="space-y-4 pt-4">
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-xl bg-helio-100 text-helio-600 flex items-center justify-center shrink-0">
+                                <i data-lucide="mail" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <div class="text-xs text-slate-400 font-medium">Email</div>
+                                <div class="text-slate-900 font-semibold text-sm">info@helikite-russia.ru</div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-xl bg-helio-100 text-helio-600 flex items-center justify-center shrink-0">
+                                <i data-lucide="phone" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <div class="text-xs text-slate-400 font-medium">Телефон</div>
+                                <div class="text-slate-900 font-semibold text-sm">+7 (800) 555-35-35</div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-xl bg-helio-100 text-helio-600 flex items-center justify-center shrink-0">
+                                <i data-lucide="map-pin" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <div class="text-xs text-slate-400 font-medium">Локация</div>
+                                <div class="text-slate-900 font-semibold text-sm">Инновационный центр, Москва</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="lg:col-span-7">
+                    <form id="contact-form" class="glass-panel p-8 sm:p-10 rounded-3xl border border-slate-200/80 shadow-lg space-y-6">
+                        <div id="form-alert" class="hidden p-4 rounded-xl text-sm font-medium"></div>
+
+                        <div class="grid sm:grid-cols-2 gap-6">
+                            <div>
+                                <label for="name" class="block text-xs font-bold text-slate-700 uppercase mb-2">Ваше имя *</label>
+                                <input type="text" id="name" required placeholder="Александр Ивано" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-helio-500 focus:ring-2 focus:ring-helio-500/20 outline-none transition-all text-sm">
+                            </div>
+                            <div>
+                                <label for="company" class="block text-xs font-bold text-slate-700 uppercase mb-2">Компания / Организация</label>
+                                <input type="text" id="company" placeholder="ООО Технологии" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-helio-500 focus:ring-2 focus:ring-helio-500/20 outline-none transition-all text-sm">
+                            </div>
+                        </div>
+
+                        <div class="grid sm:grid-cols-2 gap-6">
+                            <div>
+                                <label for="email" class="block text-xs font-bold text-slate-700 uppercase mb-2">Email *</label>
+                                <input type="email" id="email" required placeholder="alex@company.ru" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-helio-500 focus:ring-2 focus:ring-helio-500/20 outline-none transition-all text-sm">
+                            </div>
+                            <div>
+                                <label for="phone" class="block text-xs font-bold text-slate-700 uppercase mb-2">Телефон *</label>
+                                <input type="tel" id="phone" required placeholder="+7 (999) 000-00-00" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-helio-500 focus:ring-2 focus:ring-helio-500/20 outline-none transition-all text-sm">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="message" class="block text-xs font-bold text-slate-700 uppercase mb-2">Детали задачи / Вопрос *</label>
+                            <textarea id="message" rows="4" required placeholder="Опишите желаемую полезную нагрузку и условия эксплуатации..." class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-helio-500 focus:ring-2 focus:ring-helio-500/20 outline-none transition-all text-sm resize-none"></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full py-4 rounded-xl bg-helio-600 hover:bg-helio-700 text-white font-bold text-base shadow-lg shadow-helio-600/30 transition-all hover:shadow-xl hover:-translate-y-0.5">
+                            Отправить заявку
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-helio-950 text-slate-400 border-t border-slate-800 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6 border-b border-slate-800 pb-8">
+                
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-lg bg-helio-600 flex items-center justify-center text-white">
+                        <i data-lucide="wind" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-xl font-extrabold text-white tracking-tight">ГЕЛИОПЛАН</span>
+                </div>
+
+                <div class="flex flex-wrap justify-center gap-6 text-sm font-medium text-slate-300">
+                    <a href="#about" class="hover:text-white transition-colors">О концепции</a>
+                    <a href="#why" class="hover:text-white transition-colors">Почему Гелиоплан</a>
+                    <a href="#advantages" class="hover:text-white transition-colors">Преимущества</a>
+                    <a href="#applications" class="hover:text-white transition-colors">Сферы применения</a>
+                    <a href="#calculator" class="hover:text-white transition-colors">Калькулятор</a>
+                </div>
+
+            </div>
+
+            <div class="pt-8 flex flex-col sm:flex-row justify-between items-center text-xs text-slate-500 gap-4">
+                <p>© 2026 Гелиоплан (Helikite Technology). Все права защищены. Перевод и адаптация helikites.com/why-helikites</p>
+                <div class="flex gap-4">
+                    <a href="#" class="hover:underline">Политика конфиденциальности</a>
+                    <a href="#" class="hover:underline">Условия использования</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu when clicking menu items
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        const heliumRange = document.getElementById('helium-range');
+        const windRange = document.getElementById('wind-range');
+        const heliumVal = document.getElementById('helium-val');
+        const windVal = document.getElementById('wind-val');
+        
+        const payloadResult = document.getElementById('payload-result');
+        const staticLift = document.getElementById('static-lift');
+        const dynamicLift = document.getElementById('dynamic-lift');
+
+        function calculatePayload() {
+            const helium = parseFloat(heliumRange.value);
+            const wind = parseFloat(windRange.value);
+
+            // Update range labels
+            heliumVal.textContent = `${helium.toFixed(1)} м³`;
+            windVal.textContent = `${wind} км/ч`;
+
+            // Physics Approximation Formula for Helikite:
+            // Static Lift ~ 1.0 kg per m3 helium
+            // Dynamic Lift increases with wind speed & kite area (proportional to volume^(2/3))
+            const staticKg = helium * 1.0;
+            const kiteAreaFactor = Math.pow(helium, 0.67);
+            const dynamicKg = (wind * 0.025) * kiteAreaFactor;
+
+            const totalPayload = staticKg + dynamicKg;
+
+            // Render numbers
+            payloadResult.textContent = totalPayload.toFixed(1);
+            staticLift.textContent = `${staticKg.toFixed(1)} кг`;
+            dynamicLift.textContent = `+${dynamicKg.toFixed(1)} кг`;
+        }
+
+        heliumRange.addEventListener('input', calculatePayload);
+        windRange.addEventListener('input', calculatePayload);
+
+        // Initial Calculation Run
+        calculatePayload();
+
+        const contactForm = document.getElementById('contact-form');
+        const formAlert = document.getElementById('form-alert');
+
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            // Simple validation check
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+
+            if (!name || !email) {
+                formAlert.className = 'p-4 rounded-xl text-sm font-medium bg-red-100 text-red-700 border border-red-200';
+                formAlert.textContent = 'Пожалуйста, заполните все обязательные поля (*).';
+                formAlert.classList.remove('hidden');
+                return;
+            }
+
+            // Simulate Success Response without using alert()
+            formAlert.className = 'p-4 rounded-xl text-sm font-medium bg-green-100 text-green-700 border border-green-200';
+            formAlert.textContent = 'Спасибо за заявку! Наш инженер свяжется с вами в течение 30 минут.';
+            formAlert.classList.remove('hidden');
+
+            // Reset Form Fields
+            contactForm.reset();
+
+            // Hide alert after 5 seconds
+            setTimeout(() => {
+                formAlert.classList.add('hidden');
+            }, 5000);
+        });
+
+        // Navbar Scroll shadow effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 20) {
+                navbar.classList.add('shadow-md');
+            } else {
+                navbar.classList.remove('shadow-md');
+            }
+        });
+    </script>
 </body>
 </html>
